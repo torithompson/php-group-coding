@@ -22,6 +22,8 @@
     echo"<div class = heading>";
         writeHeaders("Tori Thompson, Trevor Withers, Nick Eliopoulos", "Abdellah Gada, Nelson Monsanto and Anuj Kumar", "Group coding Assignment");
     echo"</div>";
+
+    $textFile = "";
     function openFile() 
     {
         return "A long time ago, a group of friends were sitting around a table discussing life and the universe. One of them, a programmer, said \"You know, I bet we could create a universe if we just wrote a program for it.\" The others laughed, but the programmer was serious.
@@ -35,7 +37,6 @@
         And sure enough, their universe came back to life. The stars were shining bright again, the planets were spinning in their orbits, and the friends were all safe.
         ";
     }
-    $textFile = "Enter your text here";
     if (isset($_POST['f_OpenFile'])) 
     {
         $textFile = openFile();
@@ -54,8 +55,7 @@
                     drawMenu();
                 }
                     else if(isset($_POST['f_NewFile']))
-                    {
-                        $textFile = "Enter your text here";                
+                    {               
                     }
 
     echo"<form action = ? method=post>";
@@ -65,8 +65,7 @@
             displayButton("f_font", "Change Font");
         echo "</div>";
         echo "<div class = maincontainer>";
-            echo "<textarea id = textArea name=textArea rows=20 cols=100 wrap=hard spellcheck=true 
-            autofocus>$textFile</textarea>";
+            echo "<textarea id = textArea placeholder = \"Enter text here\" name=textArea rows=20 cols=100 wrap=hard spellcheck=true autofocus>$textFile</textarea>";
         echo "</div>";
     echo"</form>";
 
