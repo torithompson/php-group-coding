@@ -1,7 +1,6 @@
 <?php
     // http://localhost/phpcoding/main.php
     
-
     require_once("teamCodingInclude.php");
 
     function findTextInFile($textToSearch) 
