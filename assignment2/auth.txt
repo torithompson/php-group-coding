@@ -1,0 +1,5 @@
+localhost
+root
+nelsito4
+COMP220db
+3306
