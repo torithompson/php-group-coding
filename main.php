@@ -80,7 +80,10 @@
         {
             if (strpos($textInFile, $textToSearch) !== false)
             {
-                echo "<script>alert(\"$textToSearch was found at position " . strpos($textInFile, $textToSearch)+1 . "\");</script>";
+                
+                //<input type = $type name = $name Size = $size value = $value >
+                echo "<input type = text id = textArea name=\"f_found\" size = 40 value = 
+                \"$textToSearch was found at position " . strpos($textInFile, $textToSearch)+1 . "\">";
                 $textFound = true;
                 break;
             }
@@ -88,7 +91,7 @@
         }
         if($textFound == false)
         {
-            echo "<script>alert(\"$textToSearch not found.\")</script>";
+            echo "<input type = text id = textArea name=\"f_found\" size = 40 value = \"$textToSearch not found\">";
         }
     }
     function drawFontDropDown()
@@ -146,10 +149,10 @@
     //main
     
     echo"<div class = heading>";
-        WriteHeaders("Text Editor","Best Group");
+    WriteHeaders("Text Editor","Best Group");
     echo"</div>";
     echo"<form action = ? method=post>";
-    drawMenu();
+        drawMenu();
         if (isset($_POST['f_open'])) 
         {
             $textToOpen = openFile();
