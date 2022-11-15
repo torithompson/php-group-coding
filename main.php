@@ -1,73 +1,197 @@
 <?php
-    // http://localhost/phpcoding/main.php
+    // http://localhost/PhpGroupAssignment/partA.php
+    require_once("mainInclude.php");
+    function drawMenu()
+    {
+        
+            echo "<div class = buttonHead>";
+                drawFileDropDown();
+                drawEditDropDown();
+                drawFontDropDown(); 
+            echo "</div>";
+        
+       
     
-    require_once("teamCodingInclude.php");
+    }
 
-    function findTextInFile($textToSearch) 
+    function saveFile($textToSave)
+    {
+        $openFile = fopen("editor.dat","w");
+        $saveSuccess = fwrite($openFile, $textToSave);
+        if($saveSuccess!=FALSE)
+        {
+            echo "<script>alert(\"File Saved.\");</script>";
+
+        }
+        else
+        {
+            echo "<script>alert(\"Error Saving File.\");</script>";
+        }
+        fclose($openFile);
+    }
+    function openFile()
+    {
+        $openFile = fopen("editor.dat","r+");
+        if(file_exists("editor.dat"))
+        {
+            echo "<script>alert(\"File Opened.\");</script>";
+            $infoText = fread($openFile,filesize("editor.dat"));
+            fclose($openFile);
+        }
+        else
+        {
+            echo "<script>alert(\"Editor.dat does not exist.\");</script>";
+            $infoText="";
+        }
+        return $infoText;
+    }
+
+    function drawFileDropDown()
+    {
+            echo "<div class=\"fileDropDown dropdown\">";
+                    displayButton("f_new","File", "submit", "disabled");
+                    echo"<div class=\"dropdown-content\">";
+                        DisplayButton("f_new","New");
+                        DisplayButton("f_open","Open");
+                        DisplayButton("f_save","Save");
+        echo        "</div>
+                </div>";
+    }
+    function drawEditDropDown()
+    {
+        echo    "<div class=\"dropdown\">";
+                    displayButton("f_font","Edit", "submit", "disabled");
+        echo           "<div class=\"dropdown-content\">";
+                        DisplayTextBox("text","f_findMe",10,"");
+        echo           "</br>";
+                        DisplayTextBox("checkbox","f_caseSens",0,"");
+        echo           "Case Sensitive";
+        echo           "</br>";
+                        DisplayButton("f_find","Find");
+        echo        "</div>
+                </div>";
+    }
+
+     function findTextInFile($textToSearch) 
     {
         $textInFile = openFile();
+        $textFound = false;
         for($i = 0; $i < strlen($textInFile); $i++)
         {
             if (strpos($textInFile, $textToSearch) !== false)
             {
-                echo "$textToSearch was found at position " . strpos($textInFile, $textToSearch)+1;
+                echo "<script>alert(\"$textToSearch was found at position " . strpos($textInFile, $textToSearch)+1 . "\");</script>";
+                $textFound = true;
                 break;
             }
-            else
-                echo $textToSearch . ' not found';
+                
         }
+        if($textFound == false)
+        {
+            echo "<script>alert(\"$textToSearch not found.\")</script>";
+        }
+    }
+    function drawFontDropDown()
+    {
+        $mysqlObj = CreateConnectionObject();// call create connection function in Example 3 page 2
+
+        $TableName = "fontNames";// Important: always assume the data came from the user
+        
+        // so be sure to account for injection
+        
+        $query = "select fontName from $TableName";
+        
+        $stmtObj = $mysqlObj->prepare($query);
+        
+        $stmtObj -> execute();
+        
+        $BindResult = $stmtObj->bind_result($fontNames);
+        echo "<div class=\"dropdown\">";
+        echo DisplayButton("f_font","Font", "submit", "disabled");
+
+ //       <button class=\"dropbtn\">Font</button>
+        echo " <div class=\"dropdown-content\">";
+      
+        displayLabel("Font");
+        echo "<div class = listboxContainer>";
+        echo "<select onchange=changeFont(this.value)>";  
+        echo "<option disabled>Choose a colour scheme</option>";
+        while ($stmtObj->fetch())    
+        {      
+            echo "<option value=\"$fontNames\">" . $fontNames ."</option>";    
+            $counter++;
+        }
+        echo "</select>";
+        echo "</div>";
+        echo "<div class = listboxContainer>";
+        echo displayLabel("Font Size");
+        echo "<select onchange=changeSize(this.value)>";
+        echo "<option disabled>Choose a font size</option>";
+        echo "<option value=\"small\">small</option>";    
+        echo "<option value=\"medium\">medium</option>";  
+        echo "<option value=\"large\">large</option>";      
+        echo "</select>";
+        echo "</div></div></div>";
+        
+        $mysqlObj->close();        
+        $stmtObj->close();
+    
+    }
+    function fillTextArea($textToFill = "")
+    {
+        echo "<div class = textArea>";
+            echo "<textarea id = textArea placeholder = \"Enter text here\" name=\"f_textArea\" rows=20 cols=100 wrap=hard spellcheck=true autofocus>$textToFill</textarea>";
+        echo "</div>";
     }
     //main
+    
     echo"<div class = heading>";
-        writeHeaders("Tori Thompson, Trevor Withers, Nick Eliopoulos", "Abdellah Gada, Nelson Monsanto and Anuj Kumar", "Group coding Assignment");
+        WriteHeaders("Text Editor","Best Group");
     echo"</div>";
-
-    $textFile = "";
-    function openFile() 
-    {
-        return "A long time ago, a group of friends were sitting around a table discussing life and the universe. One of them, a programmer, said \"You know, I bet we could create a universe if we just wrote a program for it.\" The others laughed, but the programmer was serious.
-
-        So the programmer set to work, and after many long nights, they had created a universe. It was a beautiful thing, full of stars and planets and possibility. The programmer's friends were amazed, and they all wanted to live in this new universe.
-
-        But then something went wrong. The programmer made a mistake in the code, and the universe began to unravel. The stars winked out of existence, the planets crumbled, and all of the friends were forced to evacuate.
-
-        The programmer was devastated. They had created this universe, and now it was gone. But they were determined to fix their mistake and bring their universe back to life. So they sat down and wrote a new program, and this time, they made sure it was perfect.
-
-        And sure enough, their universe came back to life. The stars were shining bright again, the planets were spinning in their orbits, and the friends were all safe.
-        ";
-    }
-    if (isset($_POST['f_OpenFile'])) 
-    {
-        $textFile = openFile();
-
-    }
-        else if(isset($_POST['f_SaveFile']))
-        {
-            saveFile($textToBeSaved);
-        }
-            else if(isset($_POST['f_FindText']))
-            {
-                findTextInFile($textToSearch);
-            }
-                else if(isset($_POST['f_DrawMenu']))
-                {
-                    drawMenu();
-                }
-                    else if(isset($_POST['f_NewFile']))
-                    {               
-                    }
-
     echo"<form action = ? method=post>";
-        echo "<div class = navcontainer>";
-            displayButton("f_OpenFile", "Open File");
-            displayButton("f_edit", "Edit File");
-            displayButton("f_font", "Change Font");
-        echo "</div>";
-        echo "<div class = maincontainer>";
-            echo "<textarea id = textArea placeholder = \"Enter text here\" name=textArea rows=20 cols=100 wrap=hard spellcheck=true autofocus>$textFile</textarea>";
-        echo "</div>";
+    drawMenu();
+        if (isset($_POST['f_open'])) 
+        {
+            $textToOpen = openFile();
+            fillTextArea($textToOpen);
+        }
+            else if(isset($_POST['f_save']))
+            { 
+                //drawMenu();
+                $textToSave = $_POST['f_textArea'];
+                saveFile($textToSave);
+                $textToOpen = openFile();
+                fillTextArea($textToOpen);
+            }
+                else if(isset($_POST['f_find']))
+                {
+                    //drawMenu();
+                    $textToSearch = $_POST['f_findMe'];
+                    findTextInFile($textToSearch);
+                    $textToOpen = openFile();
+                    fillTextArea($textToOpen);
+                }
+                    else if(isset($_POST['f_DrawMenu']))
+                    {
+                        //drawMenu();
+                    }
+                        else if(isset($_POST['f_new']))
+                        {
+                            //drawMenu();
+                            fillTextArea("");         
+                        }
+                            else
+                            {
+                                //drawMenu();
+                                fillTextArea("");    
+                            }
+
     echo"</form>";
+        
+        
+
 
     writeFooters();
+
 
 ?>
