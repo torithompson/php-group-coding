@@ -157,7 +157,6 @@
         }
             else if(isset($_POST['f_save']))
             { 
-                //drawMenu();
                 $textToSave = $_POST['f_textArea'];
                 saveFile($textToSave);
                 $textToOpen = openFile();
@@ -165,24 +164,17 @@
             }
                 else if(isset($_POST['f_find']))
                 {
-                    //drawMenu();
                     $textToSearch = $_POST['f_findMe'];
                     findTextInFile($textToSearch);
                     $textToOpen = openFile();
                     fillTextArea($textToOpen);
                 }
-                    else if(isset($_POST['f_DrawMenu']))
-                    {
-                        //drawMenu();
-                    }
                         else if(isset($_POST['f_new']))
                         {
-                            //drawMenu();
                             fillTextArea("");         
                         }
                             else
                             {
-                                //drawMenu();
                                 fillTextArea("");    
                             }
 
