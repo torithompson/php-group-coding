@@ -168,40 +168,34 @@
     WriteHeaders("Text Editor","Best Group");
     echo"</div>";
     echo"<form action = ? method=post>";
-        drawMenu();
-        if (isset($_POST['f_open'])) 
-        {
-            $textToOpen = openFile();
-            fillTextArea($textToOpen);
+    drawMenu();
+    if (isset($_POST['f_open'])) 
+    {
+        $textAreaContent = openFile();
+    }
+        else if(isset($_POST['f_save']))
+        { 
+            $textAreaContent = $_POST['f_textArea'];
+            saveFile($textAreaContent);
         }
-            else if(isset($_POST['f_save']))
-            { 
-                $textToSave = $_POST['f_textArea'];
-                saveFile($textToSave);
-                $textToOpen = openFile();
-                fillTextArea($textToOpen);
+            else if(isset($_POST['f_find']))
+            {
+                $textAreaContent = $_POST['f_textArea'];
+                $textToSearch = $_POST['f_findMe'];                
+                findTextInFile($textToSearch);
             }
-                else if(isset($_POST['f_find']))
-                {
-                    $textToSearch = $_POST['f_findMe'];
-                    findTextInFile($textToSearch);
-                    $textToOpen = openFile();
-                    fillTextArea($textToOpen);
-                }
-                        else if(isset($_POST['f_new']))
+                        else
                         {
-                            fillTextArea("");         
+                            $textAreaContent = "";    
                         }
-                            else
-                            {
-                                fillTextArea("");    
-                            }
 
-    echo"</form>";
+
+    
+fillTextArea($textAreaContent);
         
         
 
-
+echo  "</form>";
     writeFooters();
 
 
