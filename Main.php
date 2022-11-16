@@ -20,14 +20,17 @@
         $saveSuccess = fwrite($openFile, $textToSave);
         if($saveSuccess!=FALSE)
         {
-            echo "<div class=\"alert\">
+            echo "<div class=\"alert1\">
                     <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
                     File Saved.
                     </div>";
         }
         else
         {
-            echo "<script>alert(\"Error Saving File.\");</script>";
+            echo "<div class=\"alert2\">
+                    <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
+                    Error Saving File.
+                    </div>";
         }
         fclose($openFile);
     }
@@ -36,7 +39,7 @@
         $openFile = fopen("editor.dat","r+");
         if(file_exists("editor.dat"))
         {
-           echo "<div class=\"alert\">
+           echo "<div class=\"alert1\">
                     <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
                     File Open.
                     </div>";
@@ -45,7 +48,10 @@
         }
         else
         {
-            echo "<script>alert(\"Editor.dat does not exist.\");</script>";
+            echo "<div class=\"alert2\">
+                    <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
+                    Editor.dat does not exist.
+                    </div>";
             $infoText="";
         }
         return $infoText;
@@ -54,34 +60,29 @@
     function drawFileDropDown()
     {
         echo "<div class=\"fileDropDown dropdown\">";
-                displayButton("f_new","File","dropbtn", "submit", "disabled");
-                echo"<div class=\"dropdown-content\">";
-                    DisplayButton("f_new","New");
-                    DisplayButton("f_open","Open");
-                    DisplayButton("f_save","Save");
-    echo        "</div>
-            </div>";
-}
+            displayButton("f_new","File","dropbtn", "submit", "disabled");
+            echo"<div class=\"dropdown-content\">";
+                DisplayButton("f_new","New");
+                DisplayButton("f_open","Open");
+                DisplayButton("f_save","Save");
+            echo "</div>";
+        echo "</div>";
+    }
     function drawEditDropDown()
     {
-        echo    "<div class=\"dropdown\">";
-                    displayButton("f_font","Edit","dropbtn", "submit", "disabled");
-        echo           "<div class=\"dropdown-content\">
-                        <div class = \"textFind\">";
-        
-                        DisplayTextBox("text","f_findMe",10,"");
-        echo           "</br>";
+        echo "<div class=\"dropdown\">";
+            displayButton("f_font","Edit","dropbtn", "submit", "disabled");
+            echo "<div class=\"dropdown-content\">";
+                echo "<div class = \"textFind\">";
+                    DisplayTextBox("text","f_findMe",10,"");
+                echo "</div>";
+                echo "<div class=\"check\">";
+                    DisplayTextBox("checkbox","f_caseSens",0,"");
+                    echo "Case Sensitive";
+                echo "</div>";
+                DisplayButton("f_find","Find");
+            echo "</div>";
         echo "</div>";
-        echo    "<div class=\"check\">";
-
-                        DisplayTextBox("checkbox","f_caseSens",0,"");
-                        
-
-        echo           "Case Sensitive";
-        echo "</div>";
-                        DisplayButton("f_find","Find");
-        echo        "</div>
-                </div>";
     }
 
      function findTextInFile($textToSearch) 
@@ -94,7 +95,7 @@
             {
                 
                 //<input type = $type name = $name Size = $size value = $value >
-                echo "<div class=\"alert\">
+                echo "<div class=\"alert1\">
                 <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
                  $textToSearch was found at position " . strpos($textInFile, $textToSearch)+1 . "</div>";
                 
@@ -105,7 +106,7 @@
         }
         if($textFound == false)
         {
-            echo "<div class=\"alert\">
+            echo "<div class=\"alert2\">
             <span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>
             $textToSearch not found
             </div>";

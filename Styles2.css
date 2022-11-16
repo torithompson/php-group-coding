@@ -115,15 +115,28 @@ body{
     padding:0em;
   }
 
-  .alert {
+  .alert1 {
     margin-top: 15px;
     padding: 20px;
     background-color: #36f44c; /* Red */
     color: black;
     margin-bottom: 15px;
-    text-align: center; 
+    text-align: center;
+    width:70%;
+    margin-left: auto; 
+    margin-right: auto;
   }
-  
+  .alert2 {
+    margin-top: 15px;
+    padding: 20px;
+    background-color: #d70e0e; /* Red */
+    color: black;
+    margin-bottom: 15px;
+    text-align: center; 
+    width:70%;
+    margin-left: auto; 
+    margin-right: auto;
+  }
   /* The close button */
   .closebtn {
     margin-left: 15px;

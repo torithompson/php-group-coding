@@ -6,7 +6,7 @@ function WriteHeaders($Heading="Welcome",$TitleBar="MySite")
         <html lang = \"en\">
         <head>
             <meta charset = \"UTF-8\">
-            <link rel =\"stylesheet\" type = \"text/css\" href=\"Styles.css\"/>
+            <link rel =\"stylesheet\" type = \"text/css\" href=\"Styles2.css\"/>
             <script src =\"websiteScript.js\"></script>
         </head>
         <title> $TitleBar </title>\n
@@ -35,17 +35,17 @@ function DisplayImage($fileName,$alt,$height=40,$width=100)
 {
     echo "<img src = $fileName height=$height width=$width alt=$alt/>";
 }
-function DisplayButton($name,$text, $type = "submit", $disabled = "", $fileName = "",$alt="")
+function DisplayButton($name,$text,$class="", $type = "", $disabled = "", $fileName = "",$alt="")
 {
     if ($fileName != "")
     {
-        echo "<button type = $type name=$fileName class=\"dropbtn\">";
+        echo "<button type = $type name=$fileName class=$class>";
         displayImage($fileName, $alt);
         echo" </button>";
     }
     else 
     {
-        echo"<button type=Submit name=$name class=\"dropbtn\" $disabled>$text</button>";
+        echo"<button type=Submit name=$name class=$class $disabled>$text</button>";
     }
 }
 function displayContactInfo()
@@ -89,5 +89,3 @@ function CreateConnectionObject()
     return ($mysqlObj);
 
 }
-// main
-?>
