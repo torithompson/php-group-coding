@@ -3,16 +3,21 @@ function WriteHeaders($Heading="Welcome",$TitleBar="MySite")
 {
     echo "
         <!doctype html>
-        <html lang = \"en\">
-        <head>
-            <meta charset = \"UTF-8\">
-            <link rel =\"stylesheet\" type = \"text/css\" href=\"Styles.css\"/>
-            <script src =\"websiteScript.js\"></script>
-        </head>
-        <title> $TitleBar </title>\n
-        <body>\n
-        <h1>$Heading</h1>\n
-        <h2>By: Nick Eliopoulos, Abdul Gada, Tori Thompson, Trevor Withers, Anuj Kumar, Nelson Perez</h2>
+            <html lang = \"en\">
+            <head>
+                <meta charset = \"UTF-8\">
+                <title> $TitleBar </title>\n
+                <link rel =\"stylesheet\" 
+                      type = \"text/css\" href=\"Styles.css\"/>
+                <script src =\"websiteScript.js\"></script>
+            </head>
+            <body>\n
+                <h1>$Heading</h1>\n
+                <h2>
+                    By: Nick Eliopoulos, Abdul Gada, 
+                        Tori Thompson, Trevor Withers, 
+                        Anuj Kumar, Nelson Perez
+                </h2>
         ";
 }
 function DisplayLabel($passLabel = "")
@@ -21,31 +26,43 @@ function DisplayLabel($passLabel = "")
 }
 function DisplayTextbox($type,$name,$size,$value = 0, $autocomplete = "on")
 {
-    echo "
-    <input type = $type name = $name Size = $size autocomplete = $autocomplete value = $value >
+    echo 
+    "
+        <input type = $type 
+               name = $name 
+               Size = $size autocomplete = $autocomplete value = $value >
     ";
 }
-function DisplayTextArea($name,$rows,$cols,$wrap,$spellcheck,$autofocus,$placeholder, $text = "")
+function DisplayTextArea($name,$rows,$cols,$wrap,$spellcheck,$autofocus,
+                         $placeholder,$text = "")
 {
-    echo "
-    <textarea name = $name rows = $rows cols = $cols wrap = $wrap spellcheck = $spellcheck autofocus = $autofocus placeholder = $placeholder>$text</textarea>
+    echo
+    "
+        <textarea name = $name rows = $rows cols = $cols wrap = $wrap 
+                  spellcheck = $spellcheck autofocus = $autofocus 
+                  placeholder = $placeholder>
+            $text
+        </textarea>
     ";
 }
 function DisplayImage($fileName,$alt,$height=40,$width=100)
 {
     echo "<img src = $fileName height=$height width=$width alt=$alt/>";
 }
-function DisplayButton($name,$text,$class="", $type = "", $disabled = "", $fileName = "",$alt="")
+function DisplayButton($name,$text,$class="", $type = "", $disabled = "", 
+                       $fileName = "",$alt="")
 {
     if ($fileName != "")
     {
         echo "<button type = $type name=$fileName class=$class>";
-        displayImage($fileName, $alt);
+                  displayImage($fileName, $alt);
         echo" </button>";
     }
     else 
     {
-        echo"<button type=Submit name=$name class=$class $disabled>$text</button>";
+        echo"<button type=Submit name=$name class=$class $disabled>
+                 $text
+             </button>";
     }
 }
 function displayContactInfo()
@@ -67,10 +84,10 @@ function displayContactInfo()
 }
 function WriteFooters()
 {  
-    echo "<footer>";
-    displayContactInfo();
-    echo "</footer>";
-    echo "</body>\n";
+    echo         "<footer>";
+                      displayContactInfo();
+    echo        "</footer>";
+    echo     "</body>\n";
     echo "</html>\n";
 }
 function CreateConnectionObject()
@@ -93,9 +110,5 @@ function CreateConnectionObject()
      // stop executing the php script
      exit;
     }
-    echo "<form action = http://localhost/EliopoulosNickCodingAsst/asstMain.php 
-        method = post>";
-    echo "<form>";
     return ($mysqlObj);
-
 }
