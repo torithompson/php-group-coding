@@ -134,7 +134,6 @@
                                 {      
                                     echo "<option value=\"$fontNames\">" 
                                         . $fontNames ."</option>";    
-                                    $counter++;
                                 }
                             
         echo             "</select>";
