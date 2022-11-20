@@ -219,9 +219,7 @@
     }
     //main
     //Add the header
-    echo"<div class = heading>";
-             WriteHeaders("Cloud Nine Text Editor","Cloud Nine");
-    echo"</div>";
+    WriteHeaders("Cloud Nine Text Editor","Cloud Nine");
     //Start the form
     echo"<form action = ? method=post>";
             //Add the buttons
