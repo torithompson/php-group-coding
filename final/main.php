@@ -128,14 +128,16 @@
         echo         "<div class = listboxContainer>";
                           displayLabel("Font");
         echo             "<select onchange=changeFont(this.value)>";  // start of list box
-        echo                "<option disabled>Choose a colour scheme</option>";
-                            
+        echo                "<option disabled selected>Choose a colour scheme</option>";
+                            if($success)
+                            {
                                 while ($stmtObj->fetch())    
                                 {      
                                     echo "<option value=\"$fontNames\">" 
                                         . $fontNames ."</option>";    
+                                    $counter++;
                                 }
-                            
+                            }
         echo             "</select>";
         echo         "</div>";
         echo         "<div class = listboxContainer>";
@@ -143,7 +145,7 @@
         echo             "<select onchange=changeSize(this.value)>";
         echo                 "<option disabled>Choose a font size</option>";
         echo                 "<option value=\"small\">small</option>";    
-        echo                 "<option value=\"medium\">medium</option>";  
+        echo                 "<option value=\"medium\" selected>medium</option>";  
         echo                 "<option value=\"large\">large</option>";      
         echo             "</select>";
         echo         "</div>";
@@ -219,7 +221,9 @@
     }
     //main
     //Add the header
-    WriteHeaders("Cloud Nine Text Editor","Cloud Nine");
+    echo"<div class = heading>";
+             WriteHeaders("Cloud Nine Text Editor","Cloud Nine");
+    echo"</div>";
     //Start the form
     echo"<form action = ? method=post>";
             //Add the buttons
