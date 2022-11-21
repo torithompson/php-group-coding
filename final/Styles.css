@@ -6,7 +6,7 @@ body
     padding:0;
     font-family: "cursive", "comic sans ms", "comic sans serif"; 
 }
-.heading {
+h1 {
     background-color: #fff;
     text-align: center;
     margin-bottom: 3em;
